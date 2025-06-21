@@ -1,0 +1,5 @@
+pm2 list --> listar servicios activos
+pm2 start app.js --name "name" --> comienza un nuvo servicio
+pm2 stop name --> frena servicio
+
+pm2 reload name --> recarga la app

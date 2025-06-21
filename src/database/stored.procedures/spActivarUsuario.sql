@@ -1,0 +1,17 @@
+CREATE PROCEDURE [dbo].[spActivarUsuario]
+    @p_USR_UID NVARCHAR(60)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Usuarios
+    SET USR_ACTIVO = 1
+    WHERE USR_UID = @p_USR_UID;
+
+    IF @@ROWCOUNT > 0
+    BEGIN
+        RETURN 1;
+    END
+	ELSE
+		RETURN 0;
+END
