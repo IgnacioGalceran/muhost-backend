@@ -21,6 +21,24 @@ export async function findAll(
   }
 }
 
+export async function findTiposAdicionales(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
+  try {
+    const Adicionales = await service.findTiposAdicionales();
+
+    res.status(200).json({
+      message: "Tipos adicionales encontrados.",
+      error: false,
+      result: Adicionales,
+    });
+  } catch (error: any) {
+    next(error);
+  }
+}
+
 export async function add(
   req: Request,
   res: Response,

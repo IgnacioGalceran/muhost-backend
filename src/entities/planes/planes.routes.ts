@@ -10,14 +10,18 @@ import {
 import sanitizeInput from "./planes.middleware.js";
 import { verifyToken } from "../../auth/auth.middleware.js";
 import { validateInput } from "./planes.validations.js";
+import checkPermissions from "../../shared/checkPermissions.js";
 
 export const router = express.Router();
+
+router.use(verifyToken);
+router.use(checkPermissions);
 
 router
   .get("/", findAll)
   .get("/obtenerLicenciasUsuarios", findAllLicencias)
   .get("/:id", findOne)
-  .post("/", verifyToken, sanitizeInput, validateInput, add)
-  .put("/:id", verifyToken, sanitizeInput, validateInput, update)
-  .patch("/:id", verifyToken, sanitizeInput, validateInput, update)
-  .delete("/:id", verifyToken, remove);
+  .post("/", sanitizeInput, validateInput, add)
+  .put("/:id", sanitizeInput, validateInput, update)
+  .patch("/:id", sanitizeInput, validateInput, update)
+  .delete("/:id", remove);

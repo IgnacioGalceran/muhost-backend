@@ -9,8 +9,13 @@ export default async function checkPermissions(
   res: Response,
   next: NextFunction
 ) {
-  let entidad: string = req.baseUrl.split("/")[2];
+  let url: string = (req.baseUrl + req.url).split("api")[1];
   let metodo: string = req.method;
+
+  let permission = {
+    funcion: url,
+    method: metodo,
+  };
 
   try {
     let params = {
@@ -21,14 +26,20 @@ export default async function checkPermissions(
       params
     );
 
-    let rol = JSON.parse(recordset[0].Usuario).RolNombre;
+    let funciones: [{ funcion: string; method: string }] = JSON.parse(
+      recordset[0].Usuario
+    ).Funciones;
 
-    if (rol === "Cliente") {
-      throw new Unauthorized("Cliente");
-    }
+    let tienePermiso = funciones.find(
+      (f) =>
+        permission.funcion.toLowerCase().includes(f.funcion.toLowerCase()) &&
+        f.method.toLowerCase() === permission.method.toLowerCase()
+    );
 
-    if (entidad === "auth") {
-      next();
+    console.log("tiene permiso: ", tienePermiso);
+
+    if (!tienePermiso) {
+      throw new Unauthorized(`${url}`);
     }
 
     next();

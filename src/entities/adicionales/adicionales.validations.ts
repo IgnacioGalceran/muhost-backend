@@ -6,12 +6,14 @@ const adicionalInsert = Joi.object({
   tipo: Joi.string().min(2).max(200).required(),
   precio: Joi.number().min(0).required(),
   duracion: Joi.number().min(0).max(9999).required(),
+  tipo_adicional: Joi.number().min(0).required(),
 });
 
 const adicionalUpdate = Joi.object({
   tipo: Joi.string().min(2).max(200).required(),
   precio: Joi.number().min(0).required(),
   duracion: Joi.number().min(0).max(9999).required(),
+  tipo_adicional: Joi.number().min(0).required(),
 });
 
 export const validateInput = (

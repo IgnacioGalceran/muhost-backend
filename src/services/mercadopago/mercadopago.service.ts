@@ -52,8 +52,6 @@ export class MercadoPagoService {
 
       const data = await response.json();
 
-      console.log(item);
-
       if (!response.ok) {
         throw new Error("No se pudo crear la preferencia");
       }
@@ -76,7 +74,6 @@ export class MercadoPagoService {
       }
 
       const pago = await this.getPago(paymentId);
-      console.log("pago: ", pago);
       const status = pago.status;
       const transaction_amout = pago.transaction_amount;
       const metadata = pago.metadata;

@@ -1,5 +1,11 @@
 import express from "express";
-import { add, findAll, update, remove } from "./adicionales.controller.js";
+import {
+  add,
+  findAll,
+  update,
+  remove,
+  findTiposAdicionales,
+} from "./adicionales.controller.js";
 import sanitizeInput from "./adicionales.middleware.js";
 import { verifyToken } from "../../auth/auth.middleware.js";
 import { validateInput } from "./adicionales.validations.js";
@@ -7,9 +13,12 @@ import checkPermissions from "../../shared/checkPermissions.js";
 
 export const router = express.Router();
 
+router.use(verifyToken);
+
 router
   .get("/", findAll)
-  .post("/", verifyToken, sanitizeInput, validateInput, add)
-  .put("/:id", verifyToken, sanitizeInput, validateInput, update)
-  .patch("/:id", verifyToken, sanitizeInput, validateInput, update)
-  .delete("/:id", verifyToken, remove);
+  .get("/findTiposAdicionales", findTiposAdicionales)
+  .post("/", sanitizeInput, checkPermissions, validateInput, add)
+  .put("/:id", sanitizeInput, checkPermissions, validateInput, update)
+  .patch("/:id", sanitizeInput, checkPermissions, validateInput, update)
+  .delete("/:id", checkPermissions, remove);

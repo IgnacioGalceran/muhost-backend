@@ -13,10 +13,13 @@ import checkPermissions from "../../shared/checkPermissions.js";
 
 export const router = express.Router();
 
+router.use(verifyToken);
+router.use(checkPermissions);
+
 router
   .get("/", findAll)
   .get("/:id", validateInput, findOne)
-  .post("/", verifyToken, sanitizeInput, validateInput, add)
-  .put("/:id", verifyToken, sanitizeInput, validateInput, update)
-  .patch("/:id", verifyToken, sanitizeInput, validateInput, update)
-  .delete("/:id", verifyToken, remove);
+  .post("/", sanitizeInput, validateInput, add)
+  .put("/:id", sanitizeInput, validateInput, update)
+  .patch("/:id", sanitizeInput, validateInput, update)
+  .delete("/:id", remove);

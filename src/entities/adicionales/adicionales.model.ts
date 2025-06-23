@@ -3,4 +3,5 @@ export interface Adicionales {
   tipo: string;
   precio: number;
   duracion: number;
+  tipo_adicional: number;
 }

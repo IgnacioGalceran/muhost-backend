@@ -15,8 +15,8 @@ import checkPermissions from "../../shared/checkPermissions.js";
 export const router = express.Router();
 
 router
-  .get("/", findAll)
-  .get("/:id", validateInput, findOne)
+  .get("/", verifyToken, checkPermissions, findAll)
+  .get("/:id", verifyToken, checkPermissions, validateInput, findOne)
   .post("/", sanitizeInput, validateInput, register)
   .post("/registerGoogle", sanitizeInput, registerGoogle)
   .put("/:id", sanitizeInput, validateInput, update)

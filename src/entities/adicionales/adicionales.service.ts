@@ -15,18 +15,30 @@ export class AdicionalesService implements Service<Adicionales> {
     return recordset;
   }
 
+  public async findTiposAdicionales(): Promise<any | undefined> {
+    const params = {};
+
+    let { recordset } = await executeStoredProcedure(
+      "spListarTiposAdicionales",
+      params
+    );
+
+    return recordset;
+  }
+
   public async findOne(item: { id: string }): Promise<any | undefined> {
     return;
   }
 
   public async add(items: Adicionales): Promise<any> {
     try {
-      const { tipo, precio, duracion } = items;
+      const { tipo, precio, duracion, tipo_adicional } = items;
 
       const params = {
         TIPO: tipo,
         PRECIO: precio,
         DURACION: duracion,
+        TIPO_ADICIONAL: tipo_adicional,
       };
 
       let { returnValue } = await executeStoredProcedure(
@@ -42,16 +54,16 @@ export class AdicionalesService implements Service<Adicionales> {
 
   public async update(items: Adicionales): Promise<any> {
     try {
-      const { tipo, precio, duracion } = items;
+      const { tipo, precio, duracion, tipo_adicional } = items;
 
       const params = {
         ADICIONAL_ID: items.id,
         TIPO: tipo,
         PRECIO: precio,
         DURACION: duracion,
+        TIPO_ADICIONAL: tipo_adicional,
       };
 
-      console.log(params);
       let { returnValue } = await executeStoredProcedure(
         "spActualizarAdicional",
         params

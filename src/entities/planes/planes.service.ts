@@ -25,7 +25,6 @@ export class PlanesService implements Service<Planes> {
 
       const rawData = result.recordset.flat();
 
-      console.log("rawData: ", rawData);
       if (rawData[0] === null) {
         return [];
       }
@@ -46,7 +45,6 @@ export class PlanesService implements Service<Planes> {
 
       const rawData = result.recordset.flat();
 
-      console.log("rawData: ", rawData);
       if (rawData[0] === null) {
         return [];
       }

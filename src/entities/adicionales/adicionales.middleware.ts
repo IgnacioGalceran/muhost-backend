@@ -9,6 +9,7 @@ export default function sanitizeInput(
     tipo: req.body.tipo,
     precio: req.body.precio,
     duracion: req.body.duracion,
+    tipo_adicional: req.body.tipo_adicional,
   };
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
