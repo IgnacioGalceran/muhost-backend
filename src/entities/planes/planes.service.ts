@@ -26,6 +26,9 @@ export class PlanesService implements Service<Planes> {
       const rawData = result.recordset.flat();
 
       console.log("rawData: ", rawData);
+      if (rawData[0] === null) {
+        return [];
+      }
 
       return rawData;
     } catch (error) {
@@ -36,12 +39,19 @@ export class PlanesService implements Service<Planes> {
 
   public async findAllLicencias(): Promise<any | undefined> {
     try {
-      let { recordset } = await executeStoredProcedure(
+      let result: any = await executeStoredProcedure(
         "spObtenerTodasLasLicenciasActuales",
         {}
       );
 
-      return recordset;
+      const rawData = result.recordset.flat();
+
+      console.log("rawData: ", rawData);
+      if (rawData[0] === null) {
+        return [];
+      }
+
+      return rawData;
     } catch (error) {
       throw new DatabaseError();
     }

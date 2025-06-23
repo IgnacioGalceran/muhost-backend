@@ -1,9 +1,10 @@
-interface Item {
+export interface Item {
   title: string;
   quantity: number;
   currency_id: string;
   unit_price: number;
   description: number;
+  vps_id: number;
 }
 
 interface Metadata {

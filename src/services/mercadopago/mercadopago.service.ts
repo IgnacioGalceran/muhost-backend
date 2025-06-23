@@ -103,6 +103,7 @@ export class MercadoPagoService {
           unit_price: it.unit_price,
           id: it.description.split("-")[0],
           tipo: it.description.split("-")[1],
+          vps_id: it.description.split("-")[2],
         })),
       });
 
@@ -143,6 +144,7 @@ export async function crearPagoConItems(pagoData: {
     unit_price: number;
     id: string;
     tipo: string;
+    vps_id: string;
   }>;
 }) {
   const pool = await connectDB();
@@ -152,12 +154,25 @@ export async function crearPagoConItems(pagoData: {
   tvp.columns.add("DET_ESP_CANTIDAD", sql.Int, { nullable: true });
   tvp.columns.add("DET_ADI_ID", sql.Int, { nullable: true });
   tvp.columns.add("DET_ADI_CANTIDAD", sql.Int, { nullable: true });
+  tvp.columns.add("DET_VPS_ID", sql.Int, { nullable: true });
 
   pagoData.items.forEach((it) => {
     if (it.tipo === "Especificación") {
-      tvp.rows.add(Number(it.id), it.quantity, null, null);
+      tvp.rows.add(
+        Number(it.id),
+        Number(it.quantity),
+        null,
+        null,
+        Number(it.vps_id)
+      );
     } else if (it.tipo === "Adicional") {
-      tvp.rows.add(null, null, Number(it.id), it.quantity);
+      tvp.rows.add(
+        null,
+        null,
+        Number(it.id),
+        Number(it.quantity),
+        Number(it.vps_id)
+      );
     }
   });
 
