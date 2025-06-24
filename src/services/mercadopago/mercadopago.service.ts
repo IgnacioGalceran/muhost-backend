@@ -9,7 +9,7 @@ import sql, { connectDB } from "../../database/sql.config.js";
 export class MercadoPagoService {
   private _mercadopago_api_url = "https://api.mercadopago.com/";
   private _notification_url =
-    "https://relate-teaches-scanned-howard.trycloudflare.com/api/mercadopago/pagos";
+    "https://warriors-wto-novels-blame.trycloudflare.com/api/mercadopago/pagos";
 
   public async getPago(id: string): Promise<any | undefined> {
     try {
@@ -182,6 +182,7 @@ export async function crearPagoConItems(pagoData: {
     .input("MetodoPago", sql.NVarChar, pagoData.metodo_pago)
     .input("Estado", sql.NVarChar, pagoData.estado)
     .input("Total", sql.Decimal(18, 2), pagoData.total)
+    .input("Imagen_url", sql.NVarChar, "")
     .input("Items", tvp);
 
   const result = await request.execute("dbo.spCrearPago");
