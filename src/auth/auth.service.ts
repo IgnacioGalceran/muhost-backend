@@ -116,7 +116,7 @@ export class AuthService {
       const payload = {
         requestType: "VERIFY_EMAIL",
         idToken: token,
-        continueUrl: "https://backviandas.ogdev.com.ar/api/auth/activarUsuario",
+        continueUrl: "https://muhostback.ogdev.com.ar/api/auth/activarUsuario",
         handleCodeInApp: false,
       };
 

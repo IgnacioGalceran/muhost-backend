@@ -9,7 +9,7 @@ import sql, { connectDB } from "../../database/sql.config.js";
 export class MercadoPagoService {
   private _mercadopago_api_url = "https://api.mercadopago.com/";
   private _notification_url =
-    "https://warriors-wto-novels-blame.trycloudflare.com/api/mercadopago/pagos";
+    "https://muhostback.ogdev.com.ar/api/mercadopago/pagos";
 
   public async getPago(id: string): Promise<any | undefined> {
     try {

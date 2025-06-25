@@ -100,6 +100,8 @@ export async function registerGoogle(
       ...req.body.sanitizedInput,
     });
 
+    console.log(success, req.body.sanitizedInput);
+
     if (success) {
       return res.status(200).json({
         message: "Usuario google creado.",

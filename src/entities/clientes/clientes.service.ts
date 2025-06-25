@@ -111,6 +111,7 @@ export class ClientesService implements Service<Clientes> {
 
       return { success: returnValue > 0, token };
     } catch (error: any) {
+      console.log(error);
       throw new DatabaseError(error);
     }
   }
@@ -135,7 +136,7 @@ async function enviarEmailConfirmacion(
     const payload = {
       requestType: "VERIFY_EMAIL",
       idToken,
-      continueUrl: `http://localhost:4000/api/auth/activarUsuario?uid=${uid}`,
+      continueUrl: `https://muhostback.ogdev.com.ar/api/auth/activarUsuario?uid=${uid}`,
       handleCodeInApp: false,
     };
 

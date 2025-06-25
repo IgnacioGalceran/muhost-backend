@@ -111,10 +111,10 @@ export async function activarUsuario(
     });
 
     if (activated <= 0) {
-      return res.redirect("http://localhost:3000/auth/activation/error");
+      return res.redirect("https://muhost.ogdev.com.ar/auth/activation/error");
     }
 
-    return res.redirect("http://localhost:3000/auth/activation/success");
+    return res.redirect("https://muhost.ogdev.com.ar/auth/activation/success");
   } catch (error: any) {
     next(error);
   }
