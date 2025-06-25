@@ -72,7 +72,7 @@ app.use("/health", (req: Request, res: Response) => {
 });
 
 if (process.env.ENVIRONMENT) {
-  const PORT = process.env.ENVIRONMENT.match("DEVELOPMENT") ? 4000 : 4001;
+  const PORT = process.env.ENVIRONMENT.match("DEVELOPMENT") ? 4000 : 4004;
 
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
