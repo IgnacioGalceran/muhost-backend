@@ -14,14 +14,18 @@ import checkPermissions from "../../shared/checkPermissions.js";
 
 export const router = express.Router();
 
-router.use(verifyToken);
-router.use(checkPermissions);
-
 router
   .get("/", findAll)
   .get("/obtenerLicenciasUsuarios", findAllLicencias)
   .get("/:id", findOne)
-  .post("/", sanitizeInput, validateInput, add)
-  .put("/:id", sanitizeInput, validateInput, update)
-  .patch("/:id", sanitizeInput, validateInput, update)
-  .delete("/:id", remove);
+  .post("/", verifyToken, checkPermissions, sanitizeInput, validateInput, add)
+  .put(
+    "/:id",
+    verifyToken,
+    checkPermissions,
+    sanitizeInput,
+    validateInput,
+    update
+  )
+  .patch("/:id", verifyToken, sanitizeInput, validateInput, update)
+  .delete("/:id", verifyToken, checkPermissions, remove);
