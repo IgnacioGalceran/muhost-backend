@@ -75,7 +75,7 @@ export class PedidosService {
         .request()
         .input("Uid", sql.NVarChar, body.uid)
         .input("MetodoPago", sql.NVarChar, "transferencia")
-        .input("Estado", sql.NVarChar, body.estado)
+        .input("Estado", sql.NVarChar, "pending")
         .input("Total", sql.Decimal(18, 2), Number(body.total))
         .input("Items", tvp)
         .input("Imagen_url", sql.NVarChar, image_url);

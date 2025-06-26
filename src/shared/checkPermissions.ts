@@ -36,8 +36,6 @@ export default async function checkPermissions(
         f.method.toLowerCase() === permission.method.toLowerCase()
     );
 
-    console.log("tiene permiso: ", tienePermiso);
-
     if (!tienePermiso) {
       throw new Unauthorized(`${url}`);
     }
