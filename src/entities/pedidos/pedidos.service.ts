@@ -3,8 +3,11 @@ import { DatabaseError } from "../../shared/errors.js";
 import { executeStoredProcedure } from "../../database/executions.js";
 import sql, { connectDB } from "../../database/sql.config.js";
 import { Item } from "../../services/mercadopago/mercadopago.model.js";
+import { BrevoService } from "../../services/brevo/brevo.service.js";
 
 export class PedidosService {
+  private brevoService = new BrevoService();
+
   public async findAll(): Promise<any[] | undefined> {
     try {
       const result = await executeStoredProcedure(
@@ -81,6 +84,32 @@ export class PedidosService {
         .input("Imagen_url", sql.NVarChar, image_url);
 
       const result = await request.execute("dbo.spCrearPago");
+      const user = result.recordset[0];
+
+      this.brevoService.enviarEmail({
+        sender: {
+          email: "nachogalceran14@gmail.com",
+          name: "Mu Host",
+        },
+        to: [
+          {
+            email: "aleobrador.gmail.com",
+            name: "Alejandro Obrador",
+          },
+        ],
+        subject: `Nuevo pedido - Transferencia`,
+        htmlContent: this.brevoService.generarHtml(
+          result.returnValue,
+          body.total,
+          itemsFormateados,
+          {
+            nombre: user?.nombre,
+            apellido: user?.apellido,
+            telefono: user?.telefono,
+            email: user?.email,
+          }
+        ),
+      });
 
       return result.returnValue > 0;
     } catch (error: any) {

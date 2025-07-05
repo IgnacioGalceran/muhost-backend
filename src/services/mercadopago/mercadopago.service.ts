@@ -5,8 +5,10 @@ import { DatabaseError } from "../../shared/errors.js";
 import { executeStoredProcedure } from "../../database/executions.js";
 import e from "express";
 import sql, { connectDB } from "../../database/sql.config.js";
+import { BrevoService } from "../brevo/brevo.service.js";
 
 export class MercadoPagoService {
+  private brevoService = new BrevoService();
   private _mercadopago_api_url = "https://api.mercadopago.com/";
   private _notification_url =
     "https://muhostback.ogdev.com.ar/api/mercadopago/pagos";
@@ -105,9 +107,29 @@ export class MercadoPagoService {
       });
 
       if (success) {
+        this.brevoService.enviarEmail({
+          sender: {
+            email: "nachogalceran14@gmail.com",
+            name: "Mu Host",
+          },
+          to: [
+            {
+              email: "aleobrador.gmail.com",
+              name: "Alejandro Obrador",
+            },
+          ],
+          subject: `Nuevo pedido - #${pago.id} - MercadoPago`,
+          htmlContent: this.brevoService.generarHtml(
+            pago.id,
+            transaction_amout,
+            items,
+            metadata
+          ),
+        });
+
         return {
           success: true,
-          message: "Pago aprobado yregistrado correctamente",
+          message: "Pago aprobado y registrado correctamente",
           status: 201,
           metadata,
         };
