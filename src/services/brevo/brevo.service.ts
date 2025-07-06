@@ -16,6 +16,8 @@ export class BrevoService {
       });
 
       const data = await response.json();
+	  
+	  console.log(data);
 
       if (!response.ok) {
         throw new Error("No se pudo enviar el email");
@@ -71,13 +73,13 @@ export class BrevoService {
         <table width="100%" max-width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
           <tr>
             <td bgcolor="#1a365d" style="padding: 25px 20px; text-align: center; color: white; font-size: 24px; font-weight: bold;">
-              Nueva Donación Recibida
+              Nueva compra en MuHost
             </td>
           </tr>
           <tr>
             <td style="padding: 30px 20px;">
               <p style="margin-top: 0; font-size: 18px; color: #333333;">
-                Se ha registrado una nueva donación en el sistema <strong>MuHost</strong>.
+                Se ha efectuado una nueva compra en <strong>MuHost</strong>.
               </p>
 
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">

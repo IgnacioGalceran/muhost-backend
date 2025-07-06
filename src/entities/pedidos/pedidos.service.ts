@@ -93,7 +93,7 @@ export class PedidosService {
         },
         to: [
           {
-            email: "aleobrador.gmail.com",
+            email: "aleobrador@gmail.com",
             name: "Alejandro Obrador",
           },
         ],
